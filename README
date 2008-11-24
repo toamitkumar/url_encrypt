@@ -1,0 +1,35 @@
+UrlEncrypt
+=================================================================================================================
+
+This plugin provides the ability to encrypt a column of the database table which you can safely expose in the URL.
+Provides handy method to make DB calls (Rails way of calling ya know !)
+
+After Installation you can put the encryptor key in your environment.rb file:
+
+UrlEncrypt.encryptors("abcdefghijklmnop", "mnbkjhkhkhkhkhkjhkjh") -> so that KEY and IV for Cipher encryption are different
+
+OR
+
+UrlEncrypt.encryptors("abcdefghijklmnop") -> so that KEY and IV for Cipher encryption are same
+
+OR 
+
+NOTHING -> so that plugin takes care of hanving its own
+
+
+Example
+=======
+class Book < ActiveRecord::Base
+  column :id, :integer
+  column :title, :string
+  
+  encrypted :with => :title
+end
+
+Ypu have handy methods:
+
+Book.find_by_encrypted_title('encrypted string')
+
+Book.find_by_encrypted_title('encrypted string', :conditions => ["any other condition can go here"])
+
+Copyright (c) 2008 (Amit Kumar), released under the MIT license
